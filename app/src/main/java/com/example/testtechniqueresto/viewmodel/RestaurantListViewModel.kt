@@ -1,6 +1,9 @@
 package com.example.testtechniqueresto.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.example.testtechniqueresto.App
+import com.example.testtechniqueresto.R
 import com.example.testtechniqueresto.models.BaseGson
 import com.example.testtechniqueresto.models.Restaurant
 import com.google.gson.Gson
@@ -32,6 +35,10 @@ class RestaurantListViewModel : ViewModel() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+
+            App.INSTANCE.apply {
+                Toast.makeText(this, this.getString(R.string.check_internet_connexion), Toast.LENGTH_LONG).show()
+            }
         }
         return list
     }
