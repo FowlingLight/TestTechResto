@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TestTechniqueResto</string>
+
+    <string name="action_search">Rechercher</string>
+
+    <string name="available_at">pour</string>
+    <string name="new_restaurant">NEW</string>
+
+    <string name="distance">%s&#160;&#160;&#160;|&#160;&#160;&#160;%s min</string>
+
+    <!-- Content description -->
+    <string name="restaurant_image_description">Photo du restaurant</string>
+    <string name="restaurant_logo_image_description">Logo du restaurant</string>
+    <string name="restaurant_phone_image_description">Numéro de téléphone du restaurant</string>
+</resources>
