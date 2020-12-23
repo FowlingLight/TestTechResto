@@ -1,7 +1,6 @@
 package com.example.testtechniqueresto.utils
 
 import android.content.Context
-import android.view.View
 import com.example.testtechniqueresto.R
 import com.example.testtechniqueresto.models.Restaurant
 
@@ -21,7 +20,7 @@ fun getRestaurantDistanceAndTime(context: Context, restaurant: Restaurant): Stri
     return context.getString(
         R.string.distance,
         stringBuilder.toString(),
-        (13 / restaurant.distance).toInt().toString()
+        (13 / restaurant.distance).toInt()
     )
 }
 

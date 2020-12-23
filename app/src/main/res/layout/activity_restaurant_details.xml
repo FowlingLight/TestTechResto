@@ -39,15 +39,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:text="@string/new_restaurant"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginEnd="@dimen/small_margin"
+            android:textStyle="bold"
             android:visibility="@{restaurant.new? View.VISIBLE : View.GONE}"
-            android:text="@string/new_restaurant" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:contentDescription="@string/back_description"
+            android:padding="@dimen/medium_margin"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/logo_image_view"
@@ -80,7 +91,6 @@
             android:id="@+id/distance_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
             android:layout_marginBottom="@dimen/medium_margin"
             android:textColor="@color/gray"
             android:transitionName="distance"
@@ -121,10 +131,7 @@
                     android:paddingStart="@dimen/big_margin"
                     android:paddingTop="@dimen/small_margin"
                     android:paddingEnd="@dimen/big_margin"
-                    android:paddingBottom="@dimen/small_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/separator_view">
+                    android:paddingBottom="@dimen/small_margin">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -148,6 +155,71 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/prepare_time_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/big_margin"
+                    android:paddingTop="@dimen/small_margin"
+                    android:paddingEnd="@dimen/big_margin"
+                    android:paddingBottom="@dimen/small_margin">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:contentDescription="@string/restaurant_phone_image_description"
+                        android:src="@drawable/ic_baseline_access_time_24"
+                        app:tint="@color/dark_gray" />
+
+                    <TextView
+                        android:id="@+id/prepare_time_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Préparé en 5 min" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/website_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/big_margin"
+                    android:paddingTop="@dimen/small_margin"
+                    android:paddingEnd="@dimen/big_margin"
+                    android:paddingBottom="@dimen/small_margin">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:contentDescription="@string/restaurant_phone_image_description"
+                        android:src="@drawable/ic_baseline_web_24"
+                        app:tint="@color/dark_gray" />
+
+                    <TextView
+                        android:id="@+id/website_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/see_menu"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:ignore="UseCompatTextViewDrawableXml" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/address_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -156,10 +228,7 @@
                     android:paddingStart="@dimen/big_margin"
                     android:paddingTop="@dimen/small_margin"
                     android:paddingEnd="@dimen/big_margin"
-                    android:paddingBottom="@dimen/small_margin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/phone_linear_layout">
+                    android:paddingBottom="@dimen/small_margin">
 
                     <ImageView
                         android:layout_width="wrap_content"

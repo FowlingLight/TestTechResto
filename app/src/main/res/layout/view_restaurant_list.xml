@@ -36,15 +36,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:text="@string/new_restaurant"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginEnd="@dimen/small_margin"
+            android:textStyle="bold"
             android:visibility="@{restaurant.new? View.VISIBLE : View.GONE}"
-            android:text="@string/new_restaurant" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/horizontal_guideline"
@@ -88,7 +88,9 @@
             android:id="@+id/name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
             android:text="@{restaurant.name}"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -101,7 +103,6 @@
             android:id="@+id/distance_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
             android:layout_marginBottom="@dimen/medium_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

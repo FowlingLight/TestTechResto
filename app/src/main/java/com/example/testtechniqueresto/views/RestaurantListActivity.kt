@@ -22,7 +22,8 @@ import kotlinx.android.synthetic.main.activity_restaurant_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class RestaurantListActivity : AppCompatActivity(), RestaurantListClickListener, SearchView.OnQueryTextListener {
+class RestaurantListActivity : AppCompatActivity(), RestaurantListClickListener,
+    SearchView.OnQueryTextListener {
 
     private val restaurantListViewModel by viewModel<RestaurantListViewModel>()
 
@@ -42,7 +43,7 @@ class RestaurantListActivity : AppCompatActivity(), RestaurantListClickListener,
         val intent = Intent(this, RestaurantDetailsActivity::class.java)
         intent.putExtra(RESTAURANT, Gson().toJson(restaurant))
 
-        val transitionPairs: Array<Pair<View, String>?> = arrayOfNulls(6)
+        val transitionPairs: Array<Pair<View, String>?> = arrayOfNulls(5)
         transitionPairs[0] = Pair(view.findViewById(R.id.restaurant_image_view), "mainImage")
         transitionPairs[1] = Pair(view.findViewById(R.id.available_time_linear_layout), "logo")
         transitionPairs[2] = Pair(view.findViewById(R.id.name_text_view), "name")
@@ -51,10 +52,6 @@ class RestaurantListActivity : AppCompatActivity(), RestaurantListClickListener,
         transitionPairs[4] = Pair(
             findViewById(android.R.id.statusBarBackground),
             Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME
-        )
-        transitionPairs[5] = Pair(
-            findViewById(android.R.id.navigationBarBackground),
-            Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME
         )
 
         val bundle =
@@ -73,7 +70,11 @@ class RestaurantListActivity : AppCompatActivity(), RestaurantListClickListener,
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem: MenuItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
-        searchView.setOnQueryTextListener(this)
+        searchView.apply {
+            queryHint = getString(R.string.search)
+            setOnQueryTextListener(this@RestaurantListActivity)
+        }
+
         return true
     }
 

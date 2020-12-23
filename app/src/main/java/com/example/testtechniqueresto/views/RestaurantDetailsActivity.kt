@@ -1,6 +1,8 @@
 package com.example.testtechniqueresto.views
 
 import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -41,62 +43,93 @@ class RestaurantDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val json = intent.getStringExtra(RESTAURANT)
 
-        json?.let {
-            if (json.isNotBlank()) {
-                restaurant = Gson().fromJson(json, Restaurant::class.java)
+        json?.let { if (json.isNotBlank()) setupRestaurantView(json) }
 
-                binding.restaurant = restaurant
-                binding.distanceTextView.text = getRestaurantDistanceAndTime(
-                    binding.distanceTextView.context,
-                    restaurant
-                )
+    }
 
-                val picasso = Picasso.Builder(this).build()
+    private fun setupRestaurantView(json: String?) {
+        restaurant = Gson().fromJson(json, Restaurant::class.java)
 
-                picasso.load(restaurant.logo.url)
-                    .into(binding.logoImageView)
-                picasso.load(restaurant.mainPicture.url)
-                    .into(binding.restaurantImageView)
+        binding.restaurant = restaurant
+        binding.distanceTextView.text = getRestaurantDistanceAndTime(
+            binding.distanceTextView.context,
+            restaurant
+        )
 
-                (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync(
-                    this
-                )
+        val picasso = Picasso.Builder(this).build()
 
-                binding.phoneLinearLayout.apply {
-                    visibility = if (restaurant.phone.isBlank()) View.GONE else View.VISIBLE
-                    setOnClickListener {
-                        if (ContextCompat.checkSelfPermission(
-                                this@RestaurantDetailsActivity,
-                                Manifest.permission.CALL_PHONE
-                            ) == PackageManager.PERMISSION_GRANTED
-                        )
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_CALL,
-                                    Uri.parse("tel:${restaurant.phone}")
-                                )
-                            )
-                        else
-                            requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), 1)
-                    }
-                }
+        picasso.load(restaurant.logo.url)
+            .into(binding.logoImageView)
+        picasso.load(restaurant.mainPicture.url)
+            .into(binding.restaurantImageView)
 
-                binding.addressLinearLayout.setOnClickListener {
-                    val gmmIntentUri =
-                        Uri.parse("geo:0,0?q=${restaurant.address.formated}")
+        (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment).getMapAsync(
+            this
+        )
 
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                    mapIntent.setPackage("com.google.android.apps.maps")
-                    mapIntent.resolveActivity(packageManager)?.let {
-                        startActivity(mapIntent)
-                    }
-                }
+        setupPhoneField()
+        setupPrepareTimeField()
+        setupMenuField()
+        setupAddressField()
 
+        binding.backButton.setOnClickListener { finish() }
+
+        setSharedElementEnterTransition(this, R.transition.detail_activity_enter_transition)
+    }
+
+    private fun setupAddressField() {
+        binding.addressLinearLayout.setOnClickListener {
+            val gmmIntentUri =
+                Uri.parse("geo:0,0?q=${restaurant.address.formated}")
+
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            mapIntent.resolveActivity(packageManager)?.let {
+                startActivity(mapIntent)
             }
-
-            setSharedElementEnterTransition(this, R.transition.detail_activity_enter_transition)
         }
+    }
 
+    private fun setupPrepareTimeField() {
+        binding.prepareTimeTextView.text =
+            getString(R.string.prepare_time, restaurant.currentPreparationTime)
+    }
+
+    private fun setupMenuField() {
+        binding.websiteLinearLayout.setOnClickListener {
+            try {
+                val i = Intent("android.intent.action.MAIN")
+                i.component =
+                    ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main")
+                i.addCategory("android.intent.category.LAUNCHER")
+                i.data = Uri.parse(restaurant.webPageUrl)
+                startActivity(i)
+            } catch (e: ActivityNotFoundException) {
+                val i = Intent(Intent.ACTION_VIEW, Uri.parse(restaurant.webPageUrl))
+                startActivity(i)
+            }
+        }
+    }
+
+    private fun setupPhoneField() {
+        binding.phoneLinearLayout.apply {
+            visibility = if (restaurant.phone.isBlank()) View.GONE else View.VISIBLE
+            setOnClickListener {
+                if (ContextCompat.checkSelfPermission(
+                        this@RestaurantDetailsActivity,
+                        Manifest.permission.CALL_PHONE
+                    ) == PackageManager.PERMISSION_GRANTED
+                )
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_CALL,
+                            Uri.parse("tel:${restaurant.phone}")
+                        )
+                    )
+                else
+                    requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), 1)
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(

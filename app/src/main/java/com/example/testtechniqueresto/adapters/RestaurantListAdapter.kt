@@ -5,14 +5,12 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SortedList
 import com.example.testtechniqueresto.databinding.ViewRestaurantListBinding
 import com.example.testtechniqueresto.models.Restaurant
 import com.example.testtechniqueresto.utils.RestaurantListClickListener
 import com.example.testtechniqueresto.utils.getRestaurantAvailableTime
 import com.example.testtechniqueresto.utils.getRestaurantDistanceAndTime
 import com.squareup.picasso.Picasso
-import java.text.SimpleDateFormat
 import java.util.*
 
 class RestaurantListAdapter(
