@@ -74,10 +74,13 @@
 
         <TextView
             android:id="@+id/name_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
             android:text="@{restaurant.name}"
+            android:textAlignment="center"
             android:textColor="@color/dark_gray"
             android:textSize="26sp"
             android:textStyle="bold"
